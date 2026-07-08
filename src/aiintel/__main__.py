@@ -4,7 +4,8 @@ from pathlib import Path
 from aiintel import run as runmod
 
 def main() -> None:
-    root = Path(os.environ.get("AI_INTEL_ROOT", Path.home() / "projects/ai-intel"))
+    # Default to THIS repo's root (where config/ lives), never a hardcoded path.
+    root = Path(os.environ.get("AI_INTEL_ROOT") or Path(__file__).resolve().parents[2])
     ap = argparse.ArgumentParser(prog="ai-intel")
     sub = ap.add_subparsers(dest="cmd", required=True)
     p_run = sub.add_parser("run")
