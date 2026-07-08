@@ -5,29 +5,33 @@ import requests
 from aiintel.models import Item
 
 API = "https://hn.algolia.com/api/v1/search"
-API_BY_DATE = "https://hn.algolia.com/api/v1/search_by_date"
 
 def collect(cfg, http_get=None) -> list[Item]:
     get = http_get or requests.get
     cutoff = int(time.time()) - cfg.settings["lookback_hours"] * 3600
     min_pts = cfg.sources["hn"]["min_points_search"]
+    # HN's Algolia index only allows filtering by `created_at_i` (a `points` filter
+    # returns HTTP 400: "attribute not specified in numericAttributesForFiltering").
+    # So we filter recency server-side and apply the points floor client-side. The
+    # relevance-sorted `search` endpoint returns popular stories first, so the floor
+    # keeps signal and drops noise. Each call carries its own floor (0 = keep all).
     calls = [
-        (API, {"tags": "front_page", "hitsPerPage": "50"}),
-        (API_BY_DATE, {
-            "tags": "story",
-            "numericFilters": f"points>{min_pts},created_at_i>{cutoff}",
-            "hitsPerPage": "100"}),
+        (API, {"tags": "front_page", "hitsPerPage": "50"}, 0),
+        (API, {"tags": "story", "numericFilters": f"created_at_i>{cutoff}",
+               "hitsPerPage": "100"}, min_pts),
     ]
     seen, items = set(), []
-    for url, params in calls:
+    for url, params, floor in calls:
         try:
             resp = get(url, params=params, timeout=30)
             resp.raise_for_status()
             hits = resp.json().get("hits", [])
         except Exception as exc:
-            print(f"[hn] {url} failed: {exc}", file=sys.stderr)
+            print(f"[hn] {params.get('tags')} query failed: {exc}", file=sys.stderr)
             continue
         for h in hits:
+            if (h.get("points") or 0) < floor:
+                continue
             oid = h.get("objectID")
             if not oid or oid in seen:
                 continue
