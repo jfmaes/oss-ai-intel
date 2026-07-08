@@ -1,0 +1,11 @@
+ledger.sqlite
+archive/
+__pycache__/
+*.egg-info/
+.venv/
+.pytest_cache/
+secrets.env
+cron.log
+.run.lock
+briefs/
+dossiers/

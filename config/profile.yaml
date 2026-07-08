@@ -1,0 +1,34 @@
+# Your stack profile — what the analyst scores every collected item against.
+#
+# Two sections, merged into one scoring pass:
+#   products: the things YOU build. Each match is a strong signal ("this could
+#             move my roadmap").
+#   domains:  the themes you track more generally, independent of any one product.
+#
+# Each entry is: `topics` (a list of phrases; a hit requires every word in a
+# phrase to appear, whole-word, in the item title) and `weight` (high=3,
+# med=2, low=1 points per match — see score.py). Add, rename, or delete
+# entries freely; nothing else in the codebase references these keys by name.
+products:
+  my-app: # replace with your own product(s) — this is just a placeholder example
+    topics: [rag, retrieval, embeddings, agents, mcp]
+    weight: high
+domains:
+  rag:
+    topics: [rag, retrieval, embeddings, reranker, chunking, graphrag, vector database]
+    weight: high
+  agents:
+    topics: [agent orchestration, a2a, mcp, multi-agent, langgraph, crewai, autogen, agent protocol]
+    weight: high
+  coding-agents:
+    topics: [coding agent, autonomous coding, swe-bench, claude code, codex, agent harness]
+    weight: high
+  models:
+    topics: [claude, anthropic, openai, gpt, gemini, llama, open weights, inference, openrouter]
+    weight: med
+  ai-security:
+    topics: [ai security, prompt injection, jailbreak, model extraction, offensive ai, agentic security]
+    weight: high
+  tooling-radar:
+    topics: [claude code, codex cli, agent skill, mcp server, claude plugin, agent framework, coding agent harness]
+    weight: med

@@ -1,0 +1,27 @@
+hn:
+  min_points_search: 80
+rss:
+  feeds:
+    - {name: openai, url: "https://openai.com/news/rss.xml", trust: vendor}
+    - {name: deepmind, url: "https://deepmind.google/blog/rss.xml", trust: vendor}
+    - {name: huggingface, url: "https://huggingface.co/blog/feed.xml", trust: vendor}
+    - {name: simonwillison, url: "https://simonwillison.net/atom/everything/", trust: curated}
+    - {name: ainews, url: "https://news.smol.ai/rss.xml", trust: curated}
+    - {name: latent-space, url: "https://www.latent.space/feed", trust: curated}
+    - {name: lobsters-ai, url: "https://lobste.rs/t/ai.rss", trust: community}
+github_releases:
+  repos:
+    - anthropics/claude-code
+    - openai/codex
+    - langchain-ai/langgraph
+    - langchain-ai/langchain
+    - run-llama/llama_index
+    - crewAIInc/crewAI
+    - modelcontextprotocol/modelcontextprotocol
+    - vllm-project/vllm
+    - ollama/ollama
+    - ggml-org/llama.cpp
+    - huggingface/transformers
+    - pydantic/pydantic-ai
+    - openai/openai-agents-python
+    - google/adk-python

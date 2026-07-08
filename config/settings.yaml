@@ -1,0 +1,15 @@
+# Tunables for the pipeline. See ARCHITECTURE.md for what each stage does with these.
+engine: claude              # which engines/<name>.py adapter runs the analyst call
+top_k: 50                   # max items handed to the analyst per run
+act_max: 2                  # max ACT items in a brief
+signal_max: 7                # max SIGNAL one-liners in a brief
+lookback_hours: 36          # collector window
+fuzzy_threshold: 92          # rapidfuzz token_set_ratio floor for "same title" dedupe
+dedupe_window_days: 14       # how far back the link ledger checks for dupes
+quiet_score_threshold: 3.0   # items scoring below this never reach the analyst
+analyst_timeout_seconds: 300
+mail:
+  to: you@example.com
+  from: you@example.com
+  smtp_host: smtp.gmail.com
+  smtp_port: 465
