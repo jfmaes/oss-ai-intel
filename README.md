@@ -17,6 +17,17 @@ only re-mentions a running story when something material changed.
 The engine that talks to an LLM is a small adapter seam — the pipeline itself
 doesn't care which model does the analysis. See [ARCHITECTURE.md](ARCHITECTURE.md).
 
+## What it looks like
+
+A real dry-run against the shipped defaults — one **ACT** item worth acting on,
+six **SIGNAL** one-liners, all deduped and scored against the profile:
+
+![Example daily brief](docs/screenshots/example-brief.png)
+
+Every run produces exactly one of these: a brief like this, a three-line "all
+quiet" when nothing clears the bar, or a failure notice — and never the same
+story twice.
+
 ## Why
 
 Most "AI news" is the same handful of launches reblogged everywhere. This
